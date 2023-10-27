@@ -4,9 +4,15 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.spacebook.database.DatabaseConnection;
 import com.spacebook.model.Passageiro;
+
+
+
+
 
 public class PassageiroDAO {
 
@@ -23,13 +29,13 @@ public class PassageiroDAO {
 	// CREATE
 	public void createPassageiro(Passageiro passageiro) {
 
-		sql = "INSERT INTO passageiro (emailPassageiro, senhaPassageiro, nomePassageiro, cpfPassageiro, enderecoPassageiro, telefonePassageiro) VALUES (?,?,?,?,?,?)";
+		sql = "INSERT INTO passageiro (emailPassageiro, senhaPassageiro, nomePassageiro, enderecoPassageiro, cpfPassageiro, telefonePassageiro) VALUES (?,?,?,?,?,?)";
 		try (PreparedStatement stmt = connection.prepareStatement(sql)) {
 			stmt.setString(1, passageiro.getemailPassageiro());
 			stmt.setString(2, passageiro.getsenhaPassageiro());
 			stmt.setString(3, passageiro.getnomePassageiro());
-			stmt.setString(4, passageiro.getcpfPassageiro());
-			stmt.setString(5, passageiro.getenderecoPassageiro());
+			stmt.setString(4, passageiro.getenderecoPassageiro());
+			stmt.setString(5, passageiro.getcpfPassageiro());
 			stmt.setString(6, passageiro.gettelefonePassageiro());
 
 			stmt.executeUpdate();
@@ -40,44 +46,82 @@ public class PassageiroDAO {
 		}
 	}
 
-	// READ
-	public void readAllPassageiros() {
-		sql = "SELECT * FROM passageiro";
+	
+	
+	public Passageiro findPassageiro(int id) {
+		Passageiro passageiro = null;
+		sql = "SELECT * FROM passageiro WHERE id=?";
+
 		try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+
+			stmt.setInt(1, id);
 			ResultSet r = stmt.executeQuery();
-			while (r.next()) {
-				Passageiro passageiro = new Passageiro();
+
+			if (r.next()) {
+				passageiro = new Passageiro();
+				passageiro.setidPassageiro(r.getInt("id"));
 				passageiro.setemailPassageiro(r.getString("emailPassageiro"));
 				passageiro.setsenhaPassageiro(r.getString("senhaPassageiro"));
 				passageiro.setnomePassageiro(r.getString("nomePassageiro"));
-				passageiro.setcpfPassageiro(r.getString("cpfPassageiro"));
 				passageiro.setenderecoPassageiro(r.getString("enderecoPassageiro"));
+				passageiro.setcpfPassageiro(r.getString("cpfPassageiro"));
 				passageiro.settelefonePassageiro(r.getString("telefonePassageiro"));
-				
-				System.out.printf("Email: %s\n Senha: %s\n Nome: %s\n CPF: %s\n Endereco: %s\n Telefone: %s", passageiro.getnomePassageiro(),
-						passageiro.getcpfPassageiro(), passageiro.getenderecoPassageiro(), passageiro.gettelefonePassageiro());
-				
+
 			}
 
-			if(!r.next()) {
-				System.out.println("[LOG] Não há dados");
-			}
-			
-		} catch (SQLException e) {
-			System.out.println("[LOG] Não foi possível acessar as informações. Mensagem: " + e.getMessage());
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 
+		return passageiro;
 	}
+	
+	// READ
 
+	public List<Passageiro> readPassageiros() {
+
+		String sql = "SELECT * FROM passageiro";
+
+		List<Passageiro> passageiros = new ArrayList<Passageiro>();
+
+		ResultSet r = null;
+
+		try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+			r = stmt.executeQuery();
+
+			while (r.next()) {
+				Passageiro passageiro = new Passageiro();
+				passageiro = new Passageiro();
+				passageiro.setidPassageiro(r.getInt("idPassageiro"));
+				passageiro.setemailPassageiro(r.getString("emailPassageiro"));
+				passageiro.setsenhaPassageiro(r.getString("senhaPassageiro"));
+				passageiro.setnomePassageiro(r.getString("nomePassageiro"));
+				passageiro.setenderecoPassageiro(r.getString("enderecoPassageiro"));
+				passageiro.setcpfPassageiro(r.getString("cpfPassageiro"));
+				passageiro.settelefonePassageiro(r.getString("telefonePassageiro"));
+
+				passageiros.add(passageiro);
+			}
+		} catch (Exception e) {
+
+			e.printStackTrace();
+
+		}
+		return passageiros;
+
+	}
+	
+	
+	
 	//UPDATE
 	public void updatePassageiro (Passageiro passageiro) {
-		sql="UPDATE passageiro SET nomePassageiro = ?, cpfPassageiro = ?, enderecoPassageiro = ?, telefonePassageiro = ? WHERE idPassageiro = ?";
+		sql="UPDATE passageiro SET emailPassageiro = ?, senhaPassageiro = ?,nomePassageiro = ?, enderecoPassageiro = ?, cpfPassageiro = ?, telefonePassageiro = ? WHERE idPassageiro = ?";
 		try (PreparedStatement stmt = connection.prepareStatement(sql)) {
 			stmt.setString(1, passageiro.getemailPassageiro());
 			stmt.setString(2, passageiro.getsenhaPassageiro());
 			stmt.setString(3, passageiro.getnomePassageiro());
-			stmt.setString(4, passageiro.getcpfPassageiro());
-			stmt.setString(5, passageiro.getenderecoPassageiro());
+			stmt.setString(4, passageiro.getenderecoPassageiro());
+			stmt.setString(5, passageiro.getcpfPassageiro());
 			stmt.setString(6, passageiro.gettelefonePassageiro());
 			stmt.setInt(7, passageiro.getidPassageiro());
 			

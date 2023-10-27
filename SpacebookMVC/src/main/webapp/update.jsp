@@ -81,36 +81,49 @@ input[type="submit"]:hover {
 			</div>
 		</nav>
 	</header>
-	<form action="CreateController" method="POST">
+	
+	<div class="container">
+		<div class="row justify-content-center">
+			<div class="col-md-6">
+				
+				<form class="mt-4 m-5"  action="UpdateController" method="post">
+				<div class="form-group">
+				<h2>Atualizar Passageiro</h2></div>
+				<div class="form-group">
+						<label for="nome">ID:</label> <input type="text"
+							class="form-control" id="id" name="id" value="${passageiro.id}" required>
+					</div>
+					<div class="form-group">
+						<label for="nome">Email:</label> <input type="text"
+							class="form-control" id="email" name="email" value="${passageiro.email}" required>
+					</div>
+					<div class="form-group">
+						<label for="login">Senha:</label> <input type="password"
+							class="form-control" id="senha" name="senha" value="${passageiro.senha}" required>
+					</div>
+					<div class="form-group">
+						<label for="senha">Nome:</label> <input type="text"
+							class="form-control" id="nome" name="nome" value="${passageiro.nome}" required>
+					</div>
+					<div class="form-group">
+						<label for="senha">Endereco:</label> <input type="text"
+							class="form-control" id="endereco" name="endereco" value="${passageiro.endereco}" required>
+					</div>
+					<div class="form-group">
+						<label for="senha">Cpf:</label> <input type="text"
+							class="form-control" id="cpf" name="cpf" value="${passageiro.cpf}" required>
+					</div>
+					<div class="form-group">
+						<label for="senha">Telefone:</label> <input type="text"
+							class="form-control" id="telefone" name="telefone" value="${passageiro.telefone}" required>
+					</div>
+					
+					<div class="form-group"><button type="submit" class="btn btn-primary">Atualizar</button></div>
+				</form>
+			</div>
+		</div>
+	</div>
 
-		<h2>Formulário de Registro de Passageiros</h2>
-
-
-		<label for="email">Email:</label> 
-		<input type="email" id="email"
-			name="email" required><br> 
-		<label for="senha">Senha:</label>
-		<input type="password" id="senha" name="senha" required><br>
-
-		<label for="nome">Nome:</label> 
-		<input type="text" id="nome"
-			name="nome" required><br>
-		<label for="endereco">Endereço:</label>
-		<input type="text" id="endereco" name="endereco" required><br>
-
-		<label for="cpf">CPF:</label> 
-		<input type="text" id="cpf" name="cpf"
-			required><br>
-			 <label for="telefone">Telefone:</label> 
-			 <input
-			type="tel" id="telefone" name="telefone" required><br>
-			 <input
-			type="submit" value="Registrar">
-
-
-
-
-	</form>
 	<!-- Rodapé -->
 	<footer class="bg-dark text-light text-center py-3 fixed-bottom">
 		&copy; SPACEBOOK 2023 Todos os direitos reservados. </footer>

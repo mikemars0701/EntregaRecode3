@@ -44,8 +44,8 @@
 </head>
 <body>
 <form> 
-    <h1>Passageiro criado com sucesso!</h1>
-    <p>Seu passageiro foi registrado com sucesso. Você pode voltar para a página de cadastro.</p>
+    <h1>Operação concluída com sucesso!</h1>
+    <p>Seu passageiro foi registrado/atualizado com sucesso. Você pode voltar para a página de cadastro.</p>
    <input type="button" value="Voltar para o cadastro" onclick="window.location.href='Cadastro.jsp';">
 
     </form>
